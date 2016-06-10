@@ -1,0 +1,22 @@
+EXE = mp3
+OBJS = mp3.o lodepng.o
+
+COMPILER = g++
+COMPILER_OPTS = -c -g -O0 -Wall
+LINKER = -lGL -lGLU -lglut -lGLEW -lm #-lm needed if math.h is in program to compile. Same with glut.h and glew.h
+LINKER_OPTS = 
+
+all: $(EXE) 
+
+mp3: mp3.o lodepng.o
+	$(COMPILER) mp3.o lodepng.o $(LINKER) -o mp3
+
+mp3.o: mp3.cpp lodepng.h
+	$(COMPILER) $(COMPILER_OPTS) mp3.cpp
+
+lodepng.o: lodepng.cpp lodepng.h
+	$(COMPILER) $(COMPILER_OPTS) lodepng.cpp
+
+clean:
+	rm -f mp3 *.o
+
